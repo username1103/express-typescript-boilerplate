@@ -1,0 +1,9 @@
+# Dependencies
+node_modules
+
+
+# Enviroment
+dev.env.example
+
+# vscode
+.vscode
