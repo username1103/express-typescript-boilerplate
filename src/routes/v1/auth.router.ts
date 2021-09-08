@@ -1,12 +1,12 @@
 import express from 'express';
 import { authValidation } from '../../validations';
 import j2s from 'joi-to-swagger';
+import validate from '../../middlewares/validate';
+import { authController } from '../../controllers';
 
 const router = express.Router();
 
-router.post('/register', (req, res) => {
-  res.send('hi');
-});
+router.post('/register', validate(authValidation.register), authController.register);
 
 export default router;
 
@@ -20,7 +20,7 @@ export const swAuthRouter = {
         required: true,
         content: {
           'application/json': {
-            schema: { ...j2s(authValidation.register.body).swagger },
+            schema: { ...j2s(authValidation.register.body!).swagger },
           },
         },
       },
