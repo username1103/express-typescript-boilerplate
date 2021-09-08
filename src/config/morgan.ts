@@ -4,7 +4,7 @@ import config from './config';
 import logger from './logger';
 
 morgan.token(
-  'messgae',
+  'message',
   (req, res: ServerResponse & { locals?: { errorMessage: string } }) => res.locals?.errorMessage || ''
 );
 
