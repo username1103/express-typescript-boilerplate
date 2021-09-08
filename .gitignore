@@ -3,7 +3,7 @@ node_modules
 
 
 # Enviroment
-dev.env.example
+dev.env
 
 # vscode
 .vscode
