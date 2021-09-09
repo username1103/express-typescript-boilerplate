@@ -14,11 +14,11 @@ export default class ApiError extends Error {
     isOperational: boolean = true,
     stack: string = ''
   ) {
-    const { name, error, message } = errorData;
+    const { name, errorCode, message } = errorData;
     super(message);
     this.statusCode = statusCode;
     this.name = name;
-    this.errorCode = error;
+    this.errorCode = errorCode;
     this.isOperational = isOperational;
     if (stack) {
       this.stack = stack;

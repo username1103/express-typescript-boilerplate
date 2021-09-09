@@ -19,7 +19,7 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   let { statusCode, errorCode, message, name } = err;
   if (config.env === 'production' && !err.isOperational) {
     statusCode = httpStatus.INTERNAL_SERVER_ERROR;
-    errorCode = errorDatas.INTERNAL_SERVER_ERROR.error;
+    errorCode = errorDatas.INTERNAL_SERVER_ERROR.errorCode;
     message = errorDatas.INTERNAL_SERVER_ERROR.message;
     name = errorDatas.INTERNAL_SERVER_ERROR.name;
   }
@@ -27,10 +27,9 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   res.locals.errorMessage = err.message;
 
   const response = {
-    statusCode,
+    name,
     errorCode,
     message,
-    name,
     ...(config.env === 'development' && { stack: err.stack }),
   };
 
