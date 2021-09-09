@@ -1,16 +1,16 @@
 import Joi from 'joi';
 import { RequestHandler } from 'express';
+import httpStatus from 'http-status';
 import { validationSchema } from '../validations/type';
 import pick from '../utils/pick';
 import ApiError from '../utils/ApiError';
-import httpStatus from 'http-status';
 import { errorDatas } from '../utils/errorData';
 
 export default (schema: validationSchema): RequestHandler =>
   (req, res, next) => {
     const validSchema = pick(schema, ['params', 'query', 'body']);
     const object = pick(req, Object.keys(validSchema));
-    const { value, error } = Joi.compile(validSchema)
+    const { value, error }: { value: typeof validSchema; error?: Joi.ValidationError | undefined } = Joi.compile(validSchema)
       .prefs({ errors: { label: 'key' } })
       .validate(object);
 

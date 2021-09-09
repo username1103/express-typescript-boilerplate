@@ -1,11 +1,11 @@
 import express from 'express';
 import helmet from 'helmet';
+import httpStatus from 'http-status';
 import routes from './routes/v1/index';
 import * as morgan from './config/morgan';
 import { errorConverter, errorHandler } from './middlewares/error';
 import ApiError from './utils/ApiError';
 import { errorDatas } from './utils/errorData';
-import httpStatus from 'http-status';
 
 const app = express();
 

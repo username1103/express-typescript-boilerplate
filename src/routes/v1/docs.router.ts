@@ -1,9 +1,9 @@
 import express from 'express';
-import swaggerDefinition from '../../docs/swaggerDef';
 import swaggerUi from 'swagger-ui-express';
 import basicAuth from 'express-basic-auth';
-import config from '../../config/config';
 import swaggerJSDoc from 'swagger-jsdoc';
+import config from '../../config/config';
+import swaggerDefinition from '../../docs/swaggerDef';
 
 const router = express.Router();
 

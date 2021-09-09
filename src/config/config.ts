@@ -2,6 +2,22 @@ import dotenv from 'dotenv';
 import path from 'path';
 import Joi from 'joi';
 
+type configSchema = {
+  env: string;
+  port: number;
+  swaggerAuth: {
+    id: string;
+    password: string;
+  };
+};
+
+type envSchema = {
+  NODE_ENV: string;
+  PORT: number;
+  ID: string;
+  PASSWORD: string;
+};
+
 dotenv.config({ path: path.join(__dirname, '../../dev.env') });
 
 const envVarsSchema = Joi.object()
@@ -13,9 +29,9 @@ const envVarsSchema = Joi.object()
   })
   .unknown();
 
-const { value: envVars, error } = envVarsSchema
+const { value: envVars, error }: { value: envSchema; error?: Joi.ValidationError | undefined } = envVarsSchema
   .prefs({ errors: { label: 'key' } })
-  .validate(process.env) as validationResult;
+  .validate(process.env);
 
 if (error) {
   throw new Error(`Config validation error: ${error.message}`);
@@ -29,21 +45,3 @@ export default {
     password: envVars.PASSWORD,
   },
 } as configSchema;
-
-type configSchema = {
-  env: string;
-  port: number;
-  swaggerAuth: {
-    id: string;
-    password: string;
-  };
-};
-
-type validationResult = Joi.ValidationResult & {
-  value: {
-    NODE_ENV: string;
-    PORT: number;
-    ID: string;
-    PASSWORD: string;
-  };
-};

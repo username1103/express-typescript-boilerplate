@@ -3,7 +3,7 @@ import config from './config/config';
 import logger from './config/logger';
 
 const server = app.listen(config.port, () => {
-  console.log(`server start: ${config.port}`);
+  logger.info(`Listening to port ${config.port}`);
 });
 
 const exitHandler = () => {

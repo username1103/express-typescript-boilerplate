@@ -1,3 +1,9 @@
+export type ErrorData = {
+  name: string;
+  errorCode: string;
+  message: string;
+};
+
 export const errorDatas: { [key: string]: ErrorData } = {
   INTERNAL_SERVER_ERROR: {
     name: 'Error',
@@ -14,10 +20,4 @@ export const errorDatas: { [key: string]: ErrorData } = {
     errorCode: 'INPUT_VALIDATION_ERROR',
     message: 'Not validated Input',
   },
-};
-
-export type ErrorData = {
-  name: string;
-  errorCode: string;
-  message: string;
 };
