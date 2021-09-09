@@ -40,7 +40,7 @@ export const swAuthRouter = {
               schema: { $ref: '#/definitions/Error' },
               examples: {
                 INPUT_VALIDATION_ERROR: {
-                  $ref: '#/components/INPUT_VALIDATION_ERROR',
+                  $ref: '#/components/Error/INPUT_VALIDATION_ERROR',
                 },
               },
             },
