@@ -7,6 +7,8 @@ export default class ApiError extends Error {
 
   errorCode: string;
 
+  message: string;
+
   isOperational: boolean;
 
   stack?: string | undefined;
@@ -17,6 +19,7 @@ export default class ApiError extends Error {
     this.statusCode = statusCode;
     this.name = name;
     this.errorCode = errorCode;
+    this.message = message;
     this.isOperational = isOperational;
     if (stack) {
       this.stack = stack;
