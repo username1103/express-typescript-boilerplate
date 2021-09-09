@@ -10,13 +10,13 @@ export default (schema: validationSchema): RequestHandler =>
   (req, res, next) => {
     const validSchema = pick(schema, ['params', 'query', 'body']);
     const object = pick(req, Object.keys(validSchema));
-    const { value, error }: { value: typeof validSchema; error?: Joi.ValidationError | undefined } = Joi.compile(validSchema)
+    const { value, error } = Joi.compile(validSchema)
       .prefs({ errors: { label: 'key' } })
-      .validate(object);
+      .validate(object) as { value: typeof validSchema; error?: Joi.ValidationError | undefined };
 
     if (error) {
       const errorMessage = error.details[0].message;
-      next(new ApiError(httpStatus.BAD_REQUEST, { ...errorDatas.INPUT_VALIDATION_ERROR, message: errorMessage }));
+      return next(new ApiError(httpStatus.BAD_REQUEST, { ...errorDatas.INPUT_VALIDATION_ERROR, message: errorMessage }));
     }
 
     Object.assign(req, value);

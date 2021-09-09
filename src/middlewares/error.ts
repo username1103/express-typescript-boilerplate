@@ -15,7 +15,7 @@ export const errorConverter: ErrorRequestHandler = (err: Error, req, res, next) 
   next(error);
 };
 
-export const errorHandler: ErrorRequestHandler = (err: ApiError, req, res) => {
+export const errorHandler: ErrorRequestHandler = (err: ApiError, req, res, next) => {
   let { statusCode, errorCode, message, name } = err;
   if (config.env === 'production' && !err.isOperational) {
     statusCode = httpStatus.INTERNAL_SERVER_ERROR;
