@@ -1,13 +1,13 @@
 import express from 'express';
 import { authValidation } from '../../validations';
-import j2s from 'joi-to-swagger';
 import validate from '../../middlewares/validate';
 import { authController } from '../../controllers';
+import { getRequestSwaggerFormFor } from '../../utils/request-to-swagger';
 
 const router = express.Router();
 
 router.post('/register', validate(authValidation.register), authController.register);
-
+router.post('/logout/:user', validate(authValidation.logout), authController.logout);
 export default router;
 
 export const swAuthRouter = {
@@ -16,14 +16,7 @@ export const swAuthRouter = {
       summary: '회원가입',
       description: '사용자 정보를 저장하고 인증 토큰을 제공합니다.',
       tags: ['Auth'],
-      requestBody: {
-        required: true,
-        content: {
-          'application/json': {
-            schema: { ...j2s(authValidation.register.body!).swagger },
-          },
-        },
-      },
+      ...getRequestSwaggerFormFor(authValidation.register),
       responses: {
         '201': {
           description: 'Created',
@@ -45,6 +38,19 @@ export const swAuthRouter = {
               },
             },
           },
+        },
+      },
+    },
+  },
+  '/auth/logout/{user}': {
+    post: {
+      summary: '로그아웃',
+      description: '사용자 인증 토큰, 디바이스 토큰을 데이터베이스에서 제거합니다.',
+      tags: ['Auth'],
+      ...getRequestSwaggerFormFor(authValidation.logout),
+      responses: {
+        '200': {
+          description: 'Ok',
         },
       },
     },
