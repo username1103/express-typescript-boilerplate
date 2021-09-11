@@ -7,7 +7,7 @@ import { getRequestSwaggerFormFor } from '../../utils/request-to-swagger';
 const router = express.Router();
 
 router.post('/register', validate(authValidation.register), authController.register);
-router.post('/logout/:user', validate(authValidation.logout), authController.logout);
+router.post('/logout/:userId', validate(authValidation.logout), authController.logout);
 export default router;
 
 export const swAuthRouter = {

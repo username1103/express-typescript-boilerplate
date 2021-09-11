@@ -1,5 +1,7 @@
 import Joi from 'joi';
 
-export type validationSchema = {
-  [key in 'query' | 'params' | 'body']?: Joi.ObjectSchema;
-};
+type RequestType = 'params' | 'query' | 'body';
+
+export interface RequestJoiSchema extends Joi.ObjectSchema<Partial<Record<RequestType, Joi.ObjectSchema>>> {}
+
+export interface RequestTypeSchema extends Partial<Record<RequestType, { [key: string]: any }>> {}

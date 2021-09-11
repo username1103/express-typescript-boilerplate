@@ -1,8 +1,9 @@
 import { version } from '../../package.json';
 import config from '../config/config';
-import { swAuthRouter } from '../routes/v1/auth.router';
+import { swAuthRouter } from '../routes/v1/auth.route';
 import definitions from './definitions';
 import components from './components';
+import { swUserRouter } from '../routes/v1/user.route';
 
 export default {
   openapi: '3.0.0',
@@ -11,7 +12,7 @@ export default {
     version,
   },
   servers: [{ url: `http://localhost:${config.port}/v1` }],
-  paths: { ...swAuthRouter },
+  paths: { ...swAuthRouter, ...swUserRouter },
   definitions,
   components,
 };
