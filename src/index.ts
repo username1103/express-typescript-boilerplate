@@ -1,9 +1,9 @@
+import { ConnectionOptions, createConnection } from 'typeorm';
+import { Server } from 'http';
 import app from './app';
 import config from './config/config';
 import logger from './config/logger';
 import 'reflect-metadata';
-import { ConnectionOptions, createConnection } from 'typeorm';
-import { Server } from 'http';
 
 let server: Server;
 
