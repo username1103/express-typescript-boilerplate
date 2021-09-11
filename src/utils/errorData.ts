@@ -20,4 +20,9 @@ export const errorDatas: { [key: string]: ErrorData } = {
     errorCode: 'INPUT_VALIDATION_ERROR',
     message: 'Not validated Input',
   },
+  USER_ALREADY_EXIST: {
+    name: 'BadRequestError',
+    errorCode: 'USER_ALREADY_EXIST',
+    message: 'User already exist',
+  },
 };
