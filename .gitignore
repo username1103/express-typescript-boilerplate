@@ -7,3 +7,6 @@ dev.env
 
 # vscode
 .vscode
+
+# generate validation interface
+src/interfaces/validations/*.ts
