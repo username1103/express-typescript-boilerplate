@@ -6,8 +6,9 @@
   "scripts": {
     "start": "nodemon --exec ts-node src/index.ts",
     "dev": "cross-env NODE_ENV=development nodemon --exec ts-node src/index.ts",
-    "lint": "eslint .",
-    "lint-fix": "eslint . --fix"
+    "lint": "eslint ./src/*",
+    "lint-fix": "eslint ./src/* --fix",
+    "types": "ts-node ./scripts/types.ts"
   },
   "author": "",
   "license": "UNLICENSED",
@@ -42,6 +43,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-prettier": "^4.0.0",
+    "joi-to-typescript": "^2.2.1",
     "nodemon": "^2.0.12",
     "prettier": "^2.3.2",
     "typescript": "^4.4.2"
