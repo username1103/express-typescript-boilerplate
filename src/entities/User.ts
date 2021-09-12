@@ -1,4 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+  getRepository,
+  InsertResult,
+} from 'typeorm';
 import { Token } from './Token';
 
 @Entity()
@@ -20,4 +29,12 @@ export class User {
 
   @OneToMany((type) => Token, (token) => token.id)
   tokens: Token[];
+
+  constructor(phone: string) {
+    this.phone = phone;
+  }
+
+  save(): Promise<InsertResult> {
+    return getRepository(User).insert(this);
+  }
 }

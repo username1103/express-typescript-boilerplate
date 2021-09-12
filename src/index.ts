@@ -16,7 +16,8 @@ createConnection({
   database: config.db.database,
   synchronize: true,
   logging: false,
-  entities: ['src/entity/**/*.ts'],
+  dropSchema: true,
+  entities: ['src/entities/**/*.ts'],
   migrations: ['src/migration/**/*.ts'],
   subscribers: ['src/subscriber/**/*.ts'],
 } as ConnectionOptions).then(() => {

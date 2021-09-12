@@ -15,9 +15,6 @@ export class Token {
   @Column()
   expires: Date;
 
-  @Column()
-  blacklisted: boolean;
-
   @CreateDateColumn()
   createdAt: Date;
 
