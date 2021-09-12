@@ -1,3 +1,4 @@
+import Joi from 'joi';
 import j2s from 'joi-to-swagger';
 import { Parameter, RequestBody } from 'swagger-jsdoc';
 import { RequestJoiSchema } from '../validations/type';
@@ -23,22 +24,22 @@ type SwaggerSchema = {
 export const getRequestSwaggerFormFor = (
   schema: RequestJoiSchema
 ): { requestBody: RequestBody | undefined; parameters: Array<Parameter> } => {
-  const validSchema = pick(schema, ['query', 'body', 'params']);
-  const requestBody: RequestBody | undefined =
-    validSchema.body !== undefined
-      ? {
-          required: true,
-          content: {
-            'application/json': {
-              schema: { ...j2s(validSchema.body).swagger },
-            },
+  const requestType = Object.keys(schema.describe().keys);
+
+  const requestBody: RequestBody | undefined = requestType.includes('body')
+    ? {
+        required: true,
+        content: {
+          'application/json': {
+            schema: { ...j2s(schema.extract('body')).swagger },
           },
-        }
-      : undefined;
+        },
+      }
+    : undefined;
 
   const parameters: Array<Parameter> = [];
-  if (validSchema.query !== undefined) {
-    const querySchema = j2s(validSchema.query).swagger as SwaggerSchema;
+  if (requestType.includes('query')) {
+    const querySchema = j2s(schema.extract('query')).swagger as SwaggerSchema;
     Object.entries(querySchema.properties).map(([key, value]) =>
       parameters.push({
         name: key,
@@ -52,8 +53,8 @@ export const getRequestSwaggerFormFor = (
     );
   }
 
-  if (validSchema.params !== undefined) {
-    const paramsSchema = j2s(validSchema.params).swagger as SwaggerSchema;
+  if (requestType.includes('params')) {
+    const paramsSchema = j2s(schema.extract('params')).swagger as SwaggerSchema;
     Object.entries(paramsSchema.properties).map(([key, value]) =>
       parameters.push({
         name: key,
