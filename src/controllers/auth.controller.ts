@@ -1,23 +1,21 @@
 import httpStatus from 'http-status';
-import { getRepository } from 'typeorm';
-import { User } from '../entity/User';
+import { User } from '../entities/User';
 import ApiError from '../utils/ApiError';
 import catchAsync from '../utils/catchAsync';
 import { errorDatas } from '../utils/errorData';
+import { RegisterRequest } from '../interfaces/validations/index';
+import { authService } from '../serivces';
 
 export const register = catchAsync(async (req, res) => {
-  const { phone } = req.body;
+  const { phone } = req.body as RegisterRequest['body'];
 
-  if (await getRepository(User).findOne({ where: { phone: phone } })) {
+  if (await User.findOne({ phone })) {
     throw new ApiError(httpStatus.BAD_REQUEST, errorDatas.USER_ALREADY_EXIST);
   }
 
-  const newUser = new User();
-  newUser.phone = phone;
+  const tokens = await authService.register(phone);
 
-  await getRepository(User).insert(newUser);
-
-  return res.send('hi');
+  return res.status(httpStatus.CREATED).send(tokens);
 });
 
 export const logout = catchAsync(async (req, res) => {

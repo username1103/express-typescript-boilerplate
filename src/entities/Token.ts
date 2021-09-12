@@ -1,8 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, BaseEntity, Timestamp } from 'typeorm';
+import { BaseEntityWithTimeStamp } from './base/BaseEntityWithTimeStamp';
 import { User } from './User';
 
 @Entity()
-export class Token {
+export class Token extends BaseEntityWithTimeStamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -14,10 +15,4 @@ export class Token {
 
   @Column()
   expires: Date;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 }

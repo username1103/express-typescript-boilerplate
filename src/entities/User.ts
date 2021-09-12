@@ -1,17 +1,9 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-  OneToMany,
-  getRepository,
-  InsertResult,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { BaseEntityWithTimeStamp } from './base/BaseEntityWithTimeStamp';
 import { Token } from './Token';
 
 @Entity()
-export class User {
+export class User extends BaseEntityWithTimeStamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -29,12 +21,4 @@ export class User {
 
   @OneToMany((type) => Token, (token) => token.id)
   tokens: Token[];
-
-  constructor(phone: string) {
-    this.phone = phone;
-  }
-
-  save(): Promise<InsertResult> {
-    return getRepository(User).insert(this);
-  }
 }
