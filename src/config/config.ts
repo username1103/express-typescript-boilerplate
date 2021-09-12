@@ -17,19 +17,30 @@ type configSchema = {
     password: string;
     database: string;
   };
+  jwt: {
+    secret: string;
+    accessExpirationMinutes: number;
+    refreshExpirationDays: number;
+  };
 };
 
 type envSchema = {
   NODE_ENV: string;
   PORT: number;
+
   DB: string;
   DB_HOST: string;
   DB_PORT: number;
   DB_USERNAME: string;
   DB_PASSWORD: string;
   DB_DATABASE: string;
+
   SW_ID: string;
   SW_PASSWORD: string;
+
+  JWT_SECRET: string;
+  JWT_ACCESS_EXPIRATION_MINUTES: number;
+  JWT_REFRESH_EXPIRATION_DAYS: number;
 };
 
 dotenv.config({ path: path.join(__dirname, '../../dev.env') });
@@ -38,14 +49,20 @@ const envVarsSchema = Joi.object()
   .keys({
     NODE_ENV: Joi.string().valid('production', 'development', 'test').required(),
     PORT: Joi.number().default(3000),
+
     DB: Joi.string().required(),
     DB_HOST: Joi.string().required(),
     DB_PORT: Joi.number().required(),
     DB_USERNAME: Joi.string().required(),
     DB_PASSWORD: Joi.string().required(),
     DB_DATABASE: Joi.string().required(),
+
     SW_ID: Joi.string().default('id'),
     SW_PASSWORD: Joi.string().default('password'),
+
+    JWT_SECRET: Joi.string().required(),
+    JWT_ACCESS_EXPIRATION_MINUTES: Joi.number().default(30),
+    JWT_REFRESH_EXPIRATION_DAYS: Joi.number().default(30),
   })
   .unknown();
 
@@ -72,5 +89,10 @@ export default {
     username: envVars.DB_USERNAME,
     password: envVars.DB_PASSWORD,
     database: envVars.DB_DATABASE,
+  },
+  jwt: {
+    secret: envVars.JWT_SECRET,
+    accessExpirationMinutes: envVars.JWT_ACCESS_EXPIRATION_MINUTES,
+    refreshExpirationDays: envVars.JWT_REFRESH_EXPIRATION_DAYS,
   },
 } as configSchema;
