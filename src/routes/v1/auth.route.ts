@@ -3,6 +3,8 @@ import { authValidation } from '../../validations';
 import validate from '../../middlewares/validate';
 import { authController } from '../../controllers';
 import { getRequestSwaggerFormFor } from '../../utils/request-to-swagger';
+import definitions from '../../docs/definitions';
+import components from '../../docs/components';
 
 const router = express.Router();
 
@@ -30,11 +32,9 @@ export const swAuthRouter = {
           description: 'Bad Request',
           content: {
             'application/json': {
-              schema: { $ref: '#/definitions/Error' },
+              schema: definitions.Error,
               examples: {
-                INPUT_VALIDATION_ERROR: {
-                  $ref: '#/components/Error/INPUT_VALIDATION_ERROR',
-                },
+                INPUT_VALIDATION_ERROR: components.Error.INPUT_VALIDATION_ERROR,
               },
             },
           },

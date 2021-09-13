@@ -3,10 +3,11 @@ import { userValidation } from '../../validations';
 import validate from '../../middlewares/validate';
 import { userController } from '../../controllers';
 import { getRequestSwaggerFormFor } from '../../utils/request-to-swagger';
+import { auth } from '../../middlewares/auth';
 
 const router = express.Router();
 
-router.get('/:userId', validate(userValidation.getUser), userController.getUser);
+router.get('/:userId', auth, validate(userValidation.getUser), userController.getUser);
 router.get('/', validate(userValidation.getUsers), userController.getUsers);
 export default router;
 
@@ -16,6 +17,7 @@ export const swUserRouter = {
       summary: '사용자 정보 제공',
       description: 'userId 값에 따른 사용자 정보를 제공합니다.',
       tags: ['User'],
+      security: [{ bearerAuth: [] }],
       ...getRequestSwaggerFormFor(userValidation.getUser),
       responses: {
         '200': {
