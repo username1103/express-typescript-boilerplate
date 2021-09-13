@@ -15,6 +15,11 @@ export const errorDatas: { [key: string]: ErrorData } = {
     errorCode: 'NOT_FOUND',
     message: 'NOT_FOUND',
   },
+  UNAUTHORIZED: {
+    name: 'Error',
+    errorCode: 'UNAUTHORIZED',
+    message: 'Please authenticate',
+  },
   INPUT_VALIDATION_ERROR: {
     name: 'ValidationError',
     errorCode: 'INPUT_VALIDATION_ERROR',
@@ -24,5 +29,10 @@ export const errorDatas: { [key: string]: ErrorData } = {
     name: 'BadRequestError',
     errorCode: 'USER_ALREADY_EXIST',
     message: 'User already exist',
+  },
+  INVALID_TOKEN_ERROR: {
+    name: 'TokenError',
+    errorCode: 'INVALID_TOKEN_ERROR',
+    message: 'It is invalid token',
   },
 };

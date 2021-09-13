@@ -3,14 +3,10 @@ import config from '../config/config';
 import moment from 'moment';
 import { User } from '../entities/User';
 import { Token } from '../entities/Token';
+import { JwtPayload, TokenType } from '../types/Jwt';
 
-export const generateToken = (
-  userId: string,
-  expires: moment.Moment,
-  type: 'ACCESS' | 'REFRESH',
-  secret = config.jwt.secret
-) => {
-  const payload = {
+export const generateToken = (userId: string, expires: moment.Moment, type: TokenType, secret = config.jwt.secret) => {
+  const payload: JwtPayload = {
     sub: userId,
     iat: moment().unix(),
     exp: expires.unix(),

@@ -6,6 +6,8 @@ import * as morgan from './config/morgan';
 import { errorConverter, errorHandler } from './middlewares/error';
 import ApiError from './utils/ApiError';
 import { errorDatas } from './utils/errorData';
+import passport from 'passport';
+import jwtStrategy from './config/passport';
 
 const app = express();
 
@@ -17,6 +19,10 @@ app.use(morgan.errorHandler);
 app.use(express.json());
 // for parsing application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
+
+// jwt authentication
+app.use(passport.initialize());
+passport.use('jwt', jwtStrategy);
 
 // set Security HTTP headers
 app.use(helmet());
