@@ -1,26 +1,14 @@
-import { ConnectionOptions, createConnection } from 'typeorm';
+import { createConnection } from 'typeorm';
 import { Server } from 'http';
 import app from './app';
 import config from './config/config';
 import logger from './config/logger';
 import 'reflect-metadata';
+import ormconfig from './config/ormconfig';
 
 let server: Server;
 
-createConnection({
-  type: config.db.type,
-  host: config.db.host,
-  port: config.db.port,
-  username: config.db.username,
-  password: config.db.password,
-  database: config.db.database,
-  synchronize: true,
-  logging: false,
-  dropSchema: true,
-  entities: ['src/entities/**/*.ts'],
-  migrations: ['src/migration/**/*.ts'],
-  subscribers: ['src/subscriber/**/*.ts'],
-} as ConnectionOptions).then(() => {
+createConnection(ormconfig[config.env]).then(() => {
   logger.info('Conneted to MySQL');
   server = app.listen(config.port, () => {
     logger.info(`Listening to port ${config.port}`);
