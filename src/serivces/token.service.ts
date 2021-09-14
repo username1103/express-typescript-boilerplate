@@ -5,7 +5,7 @@ import { User } from '../entities/User';
 import { Token } from '../entities/Token';
 import { JwtPayload, TokenType } from '../types/Jwt';
 
-export const generateToken = (userId: string, expires: moment.Moment, type: TokenType, secret = config.jwt.secret) => {
+const generateToken = (userId: string, expires: moment.Moment, type: TokenType, secret = config.jwt.secret) => {
   const payload: JwtPayload = {
     sub: userId,
     iat: moment().unix(),
@@ -44,4 +44,17 @@ export const generateAuthTokens = async (user: User) => {
     },
     userId: user.id,
   };
+};
+
+export const verifyToken = async (token: string, type: TokenType): Promise<Token> => {
+  const payload = jwt.verify(token, config.jwt.secret) as JwtPayload;
+  if (payload.type !== type) {
+    throw new Error('It is not validated');
+  }
+  const tokenInfo = await Token.findOne({ token, user: { id: payload.sub } });
+  if (tokenInfo === undefined) {
+    throw new Error('Token Not Found');
+  }
+
+  return tokenInfo;
 };

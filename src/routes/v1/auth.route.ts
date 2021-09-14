@@ -10,6 +10,8 @@ const router = express.Router();
 
 router.post('/register', validate(authValidation.register), authController.register);
 router.post('/logout/:userId', validate(authValidation.logout), authController.logout);
+router.post('/refresh-tokens', validate(authValidation.refreshTokens), authController.refreshTokens);
+
 export default router;
 
 export const swAuthRouter = {
@@ -48,6 +50,19 @@ export const swAuthRouter = {
       description: '사용자 인증 토큰, 디바이스 토큰을 데이터베이스에서 제거합니다.',
       tags: ['Auth'],
       ...getRequestSwaggerFormFor(authValidation.logout),
+      responses: {
+        '200': {
+          description: 'Ok',
+        },
+      },
+    },
+  },
+  '/auth/refresh-tokens': {
+    post: {
+      summary: '토큰 갱신',
+      description: '사용자의 토큰을 갱신합니다.',
+      tags: ['Auth'],
+      ...getRequestSwaggerFormFor(authValidation.refreshTokens),
       responses: {
         '200': {
           description: 'Ok',

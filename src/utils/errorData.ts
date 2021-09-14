@@ -1,10 +1,24 @@
 export type ErrorData = {
   name: string;
-  errorCode: string;
+  errorCode: errorType;
   message: string;
 };
 
-export const errorDatas: { [key: string]: ErrorData } = {
+type errorType =
+  | 'INTERNAL_SERVER_ERROR'
+  | 'NOT_FOUND'
+  | 'UNAUTHORIZED'
+  | 'INPUT_VALIDATION_ERROR'
+  | 'USER_ALREADY_EXIST'
+  | 'UNKNOWN_ERROR'
+  | 'USER_NOT_FOUND';
+
+export const errorDatas: { [key in errorType]: ErrorData } = {
+  UNKNOWN_ERROR: {
+    name: 'Error',
+    errorCode: 'UNKNOWN_ERROR',
+    message: 'Unknown',
+  },
   INTERNAL_SERVER_ERROR: {
     name: 'Error',
     errorCode: 'INTERNAL_SERVER_ERROR',
@@ -30,9 +44,9 @@ export const errorDatas: { [key: string]: ErrorData } = {
     errorCode: 'USER_ALREADY_EXIST',
     message: 'User already exist',
   },
-  INVALID_TOKEN_ERROR: {
-    name: 'TokenError',
-    errorCode: 'INVALID_TOKEN_ERROR',
-    message: 'It is invalid token',
+  USER_NOT_FOUND: {
+    name: 'NotFoundError',
+    errorCode: 'USER_NOT_FOUND',
+    message: 'User not found',
   },
 };

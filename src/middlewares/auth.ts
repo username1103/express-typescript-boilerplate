@@ -11,10 +11,6 @@ const verifyCallback =
   (req: Request, resolve: any, reject: any): VerifiedCallback =>
   async (err: Error, user: User | undefined, info: VerifyErrors) => {
     if (err || info || !user) {
-      if (info != null) {
-        return reject(new ApiError(httpStatus.UNAUTHORIZED, { ...errorDatas.INVALID_TOKEN_ERROR, message: info.message }));
-      }
-      console.log(err, info, user);
       return reject(new ApiError(httpStatus.UNAUTHORIZED, errorDatas.UNAUTHORIZED));
     }
     req.user = user;

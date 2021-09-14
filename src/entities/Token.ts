@@ -10,7 +10,7 @@ export class Token extends BaseEntityWithTimeStamp {
   @Column()
   token: string;
 
-  @ManyToOne((type) => User, (user) => user.tokens)
+  @ManyToOne((type) => User, (user) => user.tokens, { nullable: false, onDelete: 'CASCADE' })
   user: User;
 
   @Column()

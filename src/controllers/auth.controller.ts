@@ -3,7 +3,7 @@ import { User } from '../entities/User';
 import ApiError from '../utils/ApiError';
 import catchAsync from '../utils/catchAsync';
 import { errorDatas } from '../utils/errorData';
-import { RegisterRequest } from '../interfaces/validations/index';
+import { RegisterRequest, RefreshTokensRequest } from '../interfaces/validations/index';
 import { authService } from '../serivces';
 
 export const register = catchAsync(async (req, res) => {
@@ -20,4 +20,12 @@ export const register = catchAsync(async (req, res) => {
 
 export const logout = catchAsync(async (req, res) => {
   return res.send('logout');
+});
+
+export const refreshTokens = catchAsync(async (req, res) => {
+  const { refreshToken } = req.body as RefreshTokensRequest['body'];
+
+  const tokens = await authService.refreshTokens(refreshToken);
+
+  return res.send(tokens);
 });

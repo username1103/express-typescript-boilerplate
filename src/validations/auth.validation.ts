@@ -21,3 +21,18 @@ export const logout: RequestJoiSchema = Joi.object()
       .required(),
   })
   .meta({ className: 'LogoutRequest' });
+
+export const refreshTokens: RequestJoiSchema = Joi.object()
+  .keys({
+    body: Joi.object()
+      .keys({
+        refreshToken: Joi.string()
+          .required()
+          .example(
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MzM4MmQ1My1lOGJjLTRjODYtOTZlZC03ZWIxMjQ2ZmFjY2EiLCJpYXQiOjE2MzE1NDgwOTgsImV4cCI6MTYzNDE0MDA5OCwidHlwZSI6IlJFRlJFU0gifQ.3F-YrYYUZmrTCMNhuM8s1zx9cNDsJGj8uTtPllhoW1I'
+          )
+          .description('refresh token'),
+      })
+      .required(),
+  })
+  .meta({ className: 'RefreshTokensRequest' });
