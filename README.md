@@ -2,23 +2,17 @@
 
 ## Git clone
 
----
-
 ```bash
 git clone https://github.com/username1103/express-typescript-boilerplate.git
 ```
 
 ## Install dependencies
 
----
-
 ```bash
 npm i
 ```
 
 ## Feature
-
----
 
 - **Database**: [mysql2](https://github.com/sidorares/node-mysql2) with [typeorm](https://github.com/typeorm/typeorm)
 - **Authentication**: [passport](http://www.passportjs.org)
@@ -30,8 +24,6 @@ npm i
 - **Linting**: with [ESLint](https://eslint.org) and [Prettier](https://prettier.io)
 
 ## Environment Variables
-
----
 
 환경변수 파일(`.env` file) 수정
 
@@ -58,8 +50,6 @@ JWT_REFRESH_EXPIRATION_DAYS=30
 ```
 
 ## Ormconfig
-
----
 
 아래에서 처럼 `ormconfig.ts` 파일로 부터 config를 불러와 typeorm 연결을 하기 때문에, `/src/config/ormconfig.ts` 파일내에 ormconfig를 환경변수에 맞게 설정해야 한다.
 
@@ -97,8 +87,6 @@ export default {
 
 ## Project Structure
 
----
-
 ```
 src\
  |--config\         # 환경 변수 및 config 정보
@@ -118,8 +106,6 @@ src\
 
 ## Validation
 
----
-
 `src/validaions`에 정의한 `validation.ts`파일들을 이용해 validate을 진행한다.
 
 ```javascript
@@ -135,8 +121,6 @@ router.get('/', validate(userValidation.getUsers), userController.getUsers);
 
 ## Generate interface with joi schema
 
----
-
 ```
 npm run types
 ```
@@ -144,8 +128,6 @@ npm run types
 [joi-to-typescript](https://github.com/mrjono1/joi-to-typescript)을 사용해 작성된 `/scripts/types.ts` 파일을 실행함으로써, `/src/validations`폴더 내의 Joi schema로 부터 Request interface를 생성합니다.
 
 ## Generate swagger requestBody and parameters
-
----
 
 [joi-to-swagger](https://github.com/Twipped/joi-to-swagger)을 사용해 작성된 `/utils/request-to-swagger.ts getReuestSwaggerFormFor` 함수를 이용해 swagger docs의 `parameters`와 `requestBody`를 `/src/validations` 폴더 내 Request Joi schema로 부터 자동으로 만들어줍니다.
 
@@ -176,8 +158,6 @@ export const swAuthRouter = {
 ```
 
 ## Authentication
-
----
 
 `auth` middleware를 추가해 줌으로서 router로 들어오는 요청에 대해 jwt 사용자 인증을 진행합니다.
 
