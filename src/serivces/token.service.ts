@@ -1,6 +1,6 @@
+import moment from 'moment';
 import jwt from 'jsonwebtoken';
 import config from '../config/config';
-import moment from 'moment';
 import { User } from '../entities/User';
 import { Token } from '../entities/Token';
 import { JwtPayload, TokenType } from '../types/Jwt';

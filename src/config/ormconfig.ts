@@ -1,5 +1,5 @@
 import { ConnectionOptions } from 'typeorm';
-import config, { Node_Env } from './config';
+import config, { NodeEnv } from './config';
 
 export default {
   production: {},
@@ -18,4 +18,4 @@ export default {
     subscribers: ['src/subscriber/**/*.ts'],
   },
   development: {},
-} as { [key in Node_Env]: ConnectionOptions };
+} as { [key in NodeEnv]: ConnectionOptions };

@@ -1,7 +1,7 @@
+import httpStatus from 'http-status';
 import { tokenService } from './index';
 import { User } from '../entities/User';
 import ApiError from '../utils/ApiError';
-import httpStatus from 'http-status';
 import { errorDatas } from '../utils/errorData';
 
 export const register = async (phone: string) => {

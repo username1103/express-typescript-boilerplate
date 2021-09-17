@@ -2,9 +2,9 @@ import dotenv from 'dotenv';
 import path from 'path';
 import Joi from 'joi';
 
-export type Node_Env = 'production' | 'test' | 'development';
+export type NodeEnv = 'production' | 'test' | 'development';
 type configSchema = {
-  env: Node_Env;
+  env: NodeEnv;
   port: number;
   swaggerAuth: {
     id: string;
@@ -26,7 +26,7 @@ type configSchema = {
 };
 
 type envSchema = {
-  NODE_ENV: Node_Env;
+  NODE_ENV: NodeEnv;
   PORT: number;
 
   DB: string;

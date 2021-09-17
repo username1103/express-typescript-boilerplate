@@ -18,10 +18,9 @@ const verifyCallback =
     resolve();
   };
 
-export const auth: RequestHandler = async (req, res, next) => {
-  return new Promise((resolve, reject) => {
+export const auth: RequestHandler = async (req, res, next) =>
+  new Promise((resolve, reject) => {
     passport.authenticate('jwt', { session: false }, verifyCallback(req, resolve, reject))(req, res, next);
   })
     .then(() => next())
     .catch((err) => next(err));
-};
