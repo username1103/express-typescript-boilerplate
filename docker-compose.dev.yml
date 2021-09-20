@@ -11,7 +11,7 @@ services:
       DB_PASSWORD: password
       DB_DATABASE: database
       JWT_SECRET: thisissample
-    command: npm run dev -L
+    command: ['./wait-for-it.sh', 'db:3306', '--', 'npm', 'run', 'dev', '-L']
 
     ports:
       - 3000:3000
