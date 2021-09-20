@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  my-app:
+    container_name: myApp-dev
+    environment:
+      DB: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USERNAME: username
+      DB_PASSWORD: password
+      DB_DATABASE: database
+      JWT_SECRET: thisissample
+    command: npm run dev -L
+
+    ports:
+      - 3000:3000
+
+  db:
+    container_name: myApp-dev-db
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_USER: username
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: database

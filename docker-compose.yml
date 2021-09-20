@@ -1,0 +1,29 @@
+version: '3.9'
+
+networks:
+  app:
+    driver: bridge
+
+services:
+  my-app:
+    networks:
+      - app
+    build: .
+    image: my-app
+    environment:
+      - PORT=3000
+      - SW_ID=id
+      - SW_PASSWORD=password
+      - JWT_ACCESS_EXPIRATION_MINUTES=30
+      - JWT_REFRESH_EXPIRATION_DAYS=30
+    depends_on:
+      - db
+
+  db:
+    networks:
+      - app
+    image: mysql
+    cap_add:
+      - SYS_NICE
+    ports:
+      - 3306:3306
